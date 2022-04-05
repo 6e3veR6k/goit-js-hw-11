@@ -24,7 +24,7 @@ function createGalleryCardLayout({
   // downloads - количество загрузок.
 
   return `<li class="gallery-item">
-        <div class="photo-card">
+        <a class="photo-card" href="${largeImageURL}">
             <div class="card-img-wrapper">
                 <img
                   src="${webformatURL}"
@@ -63,6 +63,6 @@ function createGalleryCardLayout({
               <span class="img-info">${downloads}</span>
             </button>
           </div>
-        </div>
+        </a>
       </li>`;
 }
