@@ -27,7 +27,12 @@
   },
   "dependencies": {
     "axios": "^0.26.1",
+    "im": "^0.4.0",
+    "images": "^3.2.4",
+    "infinite-scroll": "^4.0.1",
+    "modern-normalize": "^1.1.0",
     "notiflix": "^3.2.5",
+    "ser": "^0.1.2",
     "simplelightbox": "^2.10.3"
   }
 }

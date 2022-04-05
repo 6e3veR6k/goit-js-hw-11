@@ -1,0 +1,49 @@
+.search-form {
+  position: relative;
+  width: 40%;
+  margin: 0 auto;
+  text-align: center;
+  height: 44px;
+  border-radius: 22px;
+  box-shadow: rgba(32, 33, 36, 0.28) 0px 1px 6px 0px;
+
+  input {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    padding-bottom: 1px;
+    padding-left: 52px;
+    padding-right: 44px;
+    padding-top: 1px;
+    text-align: start;
+    border: 0px solid transparent;
+    border-radius: 22px;
+    outline: none;
+
+
+  // position relative
+  // visibility visible
+  // width 561px
+  // z-index 2
+
+  }
+}
+
+button[type="submit"] {
+    z-index: 2;
+    background: url('../images/search-icon.svg') no-repeat center;
+    background-size: 16px 16px;
+    border: none;
+    cursor: pointer;
+    height: 100%;
+    padding: 0;
+    pointer-events: auto;
+    position: absolute;
+    right: 16px;
+    width: 26px;
+}
+

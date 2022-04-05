@@ -1,0 +1,17 @@
+.gallery {
+  margin-top: -$gap-size;
+  margin-right: -$gap-size;
+  margin-bottom: -$gap-size;
+  margin-left: -$gap-size;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.gallery-item {
+  margin-top: $gap-size;
+  margin-right: $gap-size;
+  margin-bottom: $gap-size;
+  margin-left: $gap-size;
+}
