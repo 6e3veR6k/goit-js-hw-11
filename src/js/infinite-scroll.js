@@ -1,6 +1,4 @@
 export class InfiniteScroll {
-  options;
-
   constructor(target, cl) {
     this.options = {
       root: null,
