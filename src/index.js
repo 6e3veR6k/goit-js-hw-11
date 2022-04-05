@@ -89,7 +89,9 @@ async function renderCards(elements) {
   let { searchText, pageNumber, imgPerPage } = options;
 
   if (elements[0].isIntersecting) {
-    pageNumber += 1;
+    console.log(searchText, pageNumber, imgPerPage);
+
+    options.pageNumber += 1;
     const responseObj = await getImages(searchText, pageNumber, imgPerPage);
     const imgData = await responseObj.hits;
 
