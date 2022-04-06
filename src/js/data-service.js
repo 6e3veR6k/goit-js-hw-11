@@ -1,7 +1,13 @@
+import axios from 'axios';
+
 const BASE_URL = 'https://pixabay.com/api/';
 const API_KEY = '26514918-51b3293439e1c4834d5cf3fc1';
 
 export async function getImages(searchText, pageNumber, imgPerPage) {
+  return axiosGETService(searchText, pageNumber, imgPerPage);
+}
+
+async function defaultHTTPGetService(searchText, pageNumber, imgPerPage) {
   const path = createPath(searchText, pageNumber, imgPerPage);
   const response = await fetch(path);
   const responseObject = await response.json();
@@ -26,4 +32,14 @@ export function createPath(searchText, pageNumber, imgPerPage) {
   });
 
   return `${BASE_URL}?${queryObject}`;
+}
+
+async function axiosGETService(searchText, pageNumber, imgPerPage) {
+  const BASE_URL = 'https://pixabay.com/api/';
+  const API_KEY = '26514918-51b3293439e1c4834d5cf3fc1';
+
+  const queryText = createPath(searchText, pageNumber, imgPerPage);
+  const response = await axios.get(queryText);
+
+  return response.data;
 }

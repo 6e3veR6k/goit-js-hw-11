@@ -11,6 +11,8 @@ import 'notiflix/dist/notiflix-3.2.5.min.css';
 import 'modern-normalize/modern-normalize.css';
 import './sass/main.scss';
 
+import axios from 'axios';
+
 const ref = {
   searchForm: document.getElementById('search-form'),
   gallery: document.querySelector('.gallery'),
@@ -21,6 +23,8 @@ let options = {
   pageNumber: 1,
   imgPerRow: 4,
   rows: 12,
+  loadedImages: 0,
+  foundedImages: 0,
   imgPerPage() {
     return this.imgPerRow * this.rows;
   },
@@ -43,7 +47,7 @@ async function onSearchButtonClick(e) {
   e.preventDefault();
   ref.gallery.innerHTML = '';
   const searchText = ref.searchForm.elements.searchQuery.value;
-  if (!searchText) return;
+  if (!searchText.trim()) return;
 
   options = { ...options, ...{ searchText, pageNumber: 1 } };
 
@@ -59,6 +63,10 @@ async function processGallery(searchText, pageNumber, imgPerPage) {
       Notify.info(`Hooray! We found ${responseObj.totalHits} images.`);
     }
     renderLayout(imgData);
+
+    options.loadedImages = imgData.length;
+    options.foundedImages = responseObj.totalHits;
+
     addSmoothScroll();
     lightbox.refresh();
   } else {
@@ -70,14 +78,14 @@ function renderLayout(imgData) {
   const layout = createGalleryLayout(imgData);
   ref.gallery.insertAdjacentHTML('beforeend', layout);
 
-  const infScroll = new InfiniteScroll(ref.gallery.lastChild, renderCards);
+  if (hasItemsInDB(options.loadedImages, options.foundedImages)) {
+    const infScroll = new InfiniteScroll(ref.gallery.lastChild, renderCards);
+  }
 }
 
 function hasItemsInCollection(imgData) {
   return imgData.length > 0;
 }
-
-window.addEventListener('scroll', () => console.log(document.documentElement.scrollTop));
 
 function addSmoothScroll() {
   const { height: cardHeight } = ref.gallery.firstElementChild.getBoundingClientRect();
@@ -89,17 +97,20 @@ async function renderCards(elements) {
   let { searchText, pageNumber, imgPerPage } = options;
 
   if (elements[0].isIntersecting) {
-    console.log(searchText, pageNumber, imgPerPage);
-
     options.pageNumber += 1;
     const responseObj = await getImages(searchText, pageNumber, imgPerPage);
     const imgData = await responseObj.hits;
 
     if (hasItemsInCollection(imgData)) {
       renderLayout(imgData);
+      options.loadedImages += imgData.length;
       lightbox.refresh();
     } else {
       Notify.failure("We're sorry, but you've reached the end of search results.");
     }
   }
+}
+
+function hasItemsInDB(loaded, founded) {
+  return loaded < founded;
 }
